@@ -1,0 +1,63 @@
+
+.updatebox {
+    font-family: Roboto, Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    /* width: 120%; */
+    height: 100%;
+  }
+  
+  /* .version-info {
+    font-size: 8pt;
+    float: right;
+    margin: 8px;
+  } */
+
+
+  .title {
+    color: #333; 
+    text-align: center;
+  }
+  
+ /* .mat-typography .box {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    overflow-x: hidden;
+ } */
+
+ /* .add-product-form {
+  max-width: 50rem;
+  background-color: var(--bg-color);
+  border-radius: .5rem;
+  padding: 1.5rem;
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+} */
+
+/* .add-product-form h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--black);
+  text-transform: uppercase;
+  text-align: center;
+} */
+
+ /* .add-product-form .box {
+  border: none;
+  padding: 0.75rem 1rem;
+  color: var(--black);
+  border-radius: .5rem;
+  background-color: var(--white);
+  margin: 10px 10px;
+  width: 100%;
+  height: 20%;
+}
+  */

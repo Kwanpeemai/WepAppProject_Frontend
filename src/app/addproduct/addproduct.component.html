@@ -1,0 +1,235 @@
+<div class="header">
+    <div class="flex">
+        <h1 class="logo">HAVE A CUP DAY</h1>
+        <nav class="navbar">
+            <a (click)="changePageAdd()">add products</a>
+            <a (click)="changePageAdmin()">Admin</a>
+
+
+        </nav>
+    </div>
+</div>
+
+<div class="container" *ngIf="page =='add'">
+    <form action="" method="post" class="add-product-form" enctype="multipart/form-data" style=" height: 30%;">
+        <h3>SELECT</h3>
+        <select class="optionvalue" type="text" name="text" style="text-align: center;" placeholder="กดเมนูที่จะเพิ่ม"
+            value={{menu}} [(ngModel)]="menu" (change)="call_api(menu)">
+            <option value="size"> size </option>
+            <option value="flavor"> flavor </option>
+            <option value="topping"> topping </option>
+            <option value="sauce"> sauce </option>
+        </select>
+    </form>
+    <div class="flavor-container" *ngIf="menu=='flavor'">
+        <section>
+            <form action="" method="post" class="add-product-form" enctype="multipart/form-data">
+                <h3>FLAVOR</h3>
+                <p>Product Name(Thai)</p>
+                <input name="name_th" type="text" class="box" placeholder="enter the product name" value={{name_th}}
+                    [(ngModel)]="name_th">
+                <p>Product Name(English)</p>
+                <input name="name_en" type="text" class="box" placeholder="enter the product name" value={{name_en}}
+                    [(ngModel)]="name_en">
+                <p>Product Price</p>
+                <input name="price" type="number" class="box" placeholder="enter the product price" value={{price}}
+                    [(ngModel)]="price">
+                <p>Product Quantity</p>
+                <input name="stock" type="number" class="box" placeholder="enter the product quantity" value={{stock}}
+                    [(ngModel)]="stock">
+                <input type="submit" value="add the product" name="add_product" class="btn" [disabled]="name_th == '' || name_en == '' || price < 0 || stock < 0" (click)="adddata()">
+            </form>
+        </section>
+
+        <section class="display-product-table">
+            <table>
+                <thead>
+                    <th>product name(TH)</th>
+                    <th>product name(EN)</th>
+                    <th>product price</th>
+                    <th>stock</th>
+                    <th>action</th>
+                </thead>
+                <tbody *ngFor="let item of flavors">
+                    <tr>
+                        <td>{{item.name_th}}</td>
+                        <td>{{item.name_en}}</td>
+                        <td>{{item.price}}</td>
+                        <td>{{item.stock}}</td>
+                        <td>
+                            <button class="btn delete-btn" (click)="deleteflavors(item.id);">Delete</button>
+                            <button class="btn option-btn" (click)="openDialog(item.id,menu);">Update</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+
+    <div class="size-container" *ngIf="menu=='size'">
+        <section>
+            <form action="" method="post" class="add-product-form" enctype="multipart/form-data">
+                <h3>SIZE</h3>
+                <p>Product Name(Thai)</p>
+                <input name="size_name_th" type="text" class="box" placeholder="enter the product name"
+                    value={{size_name_th}} [(ngModel)]="size_name_th"  >
+                <p>Product Name(English)</p>
+                <input name="size_name_en" type="text" class="box" placeholder="enter the product name"
+                    value={{size_name_en}} [(ngModel)]="size_name_en"  >
+                <p>Product Price</p>
+                <input name="size_price" type="number" class="box" placeholder="enter the product price"
+                    value={{size_price}} [(ngModel)]="size_price" min="0">
+                <p>Product Quantity</p>
+                <input name="size_stock" type="number" class="box" placeholder="enter the product quantity"
+                    value={{size_stock}} [(ngModel)]="size_stock" min="0">
+                <input type="submit" value="add the product" name="add_product" class="btn" [disabled]="size_name_th == '' || size_name_en == '' || size_price < 0 || size_stock < 0" (click)="adddata_size()">
+            </form>
+        </section>
+
+        <section class="display-product-table">
+            <table>
+                <thead>
+                    <th>product name(TH)</th>
+                    <th>product name(EN)</th>
+                    <th>product price</th>
+                    <th>stock</th>
+                    <th>action</th>
+                </thead>
+                <tbody *ngFor="let item of sizes">
+                    <tr>
+                        <td>{{item.name_th}}</td>
+                        <td>{{item.name_en}}</td>
+                        <td>{{item.price}}</td>
+                        <td>{{item.stock}}</td>
+                        <td>
+                            <button class="btn delete-btn" (click)="deletesize(item.id);">Delete</button>
+                            <button class="btn option-btn" (click)="openDialog(item.id,menu);">Update</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <div class="topping-container" *ngIf="menu=='topping'">
+        <section>
+            <form action="" method="post" class="add-product-form" enctype="multipart/form-data">
+                <h3>TOPPING</h3>
+                <p>Product Name(Thai)</p>
+                <input name="name_th" type="text" class="box" placeholder="enter the product name"
+                    value={{topping_name_th}} [(ngModel)]="topping_name_th">
+                <p>Product Name(English)</p>
+                <input name="name_en" type="text" class="box" placeholder="enter the product name"
+                    value={{topping_name_en}} [(ngModel)]="topping_name_en">
+                <p>Product Price</p>
+                <input name="price" type="number" class="box" placeholder="enter the product price"
+                    value={{topping_price}} [(ngModel)]="topping_price" min="0">
+                <p>Product Quantity</p>
+                <input name="stock" type="number" class="box" placeholder="enter the product quantity"
+                    value={{topping_stock}} [(ngModel)]="topping_stock" min="0">
+                <input type="submit" value="add the product" name="add_product" class="btn" [disabled]="topping_name_th == '' || topping_name_en == '' || topping_price < 0 || topping_stock < 0" (click)="adddata_topping()">
+            </form>
+        </section>
+
+        <section class="display-product-table">
+            <table>
+                <thead>
+                    <th>product name(TH)</th>
+                    <th>product name(EN)</th>
+                    <th>product price</th>
+                    <th>stock</th>
+                    <th>action</th>
+                </thead>
+                <tbody *ngFor="let item of toppings">
+                    <tr>
+                        <td>{{item.name_th}}</td>
+                        <td>{{item.name_en}}</td>
+                        <td>{{item.price}}</td>
+                        <td>{{item.stock}}</td>
+                        <td>
+                            <button class="btn delete-btn" (click)="deletetopping(item.id);">Delete</button>
+                            <button class="btn option-btn" (click)="openDialog(item.id,menu);">Update</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <div class="sauce-container" *ngIf="menu=='sauce'">
+        <section>
+            <form action="" method="post" class="add-product-form" enctype="multipart/form-data">
+                <h3>SAUCE</h3>
+                <p>Product Name(Thai)</p>
+                <input name="name_th" type="text" class="box" placeholder="enter the product name"
+                    value={{sauce_name_th}} [(ngModel)]="sauce_name_th">
+                <p>Product Name(English)</p>
+                <input name="name_en" type="text" class="box" placeholder="enter the product name"
+                    value={{sauce_name_en}} [(ngModel)]="sauce_name_en" min="0">
+                <p>Product Price</p>
+                <input name="price" type="number" class="box" placeholder="enter the product price"
+                    value={{sauce_price}} [(ngModel)]="sauce_price" min="0">
+                <p>Product Quantity</p>
+                <input name="stock" type="number" class="box" placeholder="enter the product quantity"
+                    value={{sauce_stock}} [(ngModel)]="sauce_stock">
+                <input type="submit" value="add the product" name="add_product" class="btn" [disabled]="sauce_name_th == '' || sauce_name_en == '' || sauce_price < 0 || sauce_stock < 0" (click)="adddata_sauce()">
+            </form>
+        </section>
+
+        <section class="display-product-table">
+            <table>
+                <thead>
+                    <th>product name(TH)</th>
+                    <th>product name(EN)</th>
+                    <th>product price</th>
+                    <th>stock</th>
+                    <th>action</th>
+                </thead>
+                <tbody *ngFor="let item of sauces">
+                    <tr>
+                        <td>{{item.name_th}}</td>
+                        <td>{{item.name_en}}</td>
+                        <td>{{item.price}}</td>
+                        <td>{{item.stock}}</td>
+                        <td>
+                            <button class="btn delete-btn" (click)="deletesauce(item.id);">Delete</button>
+                            <button class="btn option-btn" (click)="openDialog(item.id,menu);">Update</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
+
+
+<div class="status-container" *ngIf="page =='admin'" style="margin-top: 125px;">
+    <div class="text">
+        <h1> ORDERS STATUS </h1>
+    </div>
+
+    <div class="display-table" style="padding-left: 140px;">
+        <table >
+            <tr>
+                <th>NO.</th>
+                <th>Menu</th>
+                <th>Price</th>
+                <th>Customer Status</th>
+                <th>Kitchen Status</th>
+            </tr>
+            <tr *ngFor="let order of order_details; let i = index">
+                <td>{{order.id}}</td>
+                <td>Size : {{order.menu_size}}<br> Flavor : {{order.menu_flavor}} <br> Topping : {{order.menu_topping}} <br> Sauce : {{order.menu_sauce}}</td>
+                <td>{{order.price}}</td>
+                <td>
+                    <button class="btn-customer"  [ngStyle]="{'background-color': order.check1 ? 'greenyellow' : 'red'}" (click)="toggleCheck1(i)">Complete</button>
+                </td>
+                <td>
+                    <button class="btn-kitchen"  [ngStyle]="{'background-color': order.check2  ? 'greenyellow' : 'red'}" (click)="toggleCheck2(i)">Complete</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
